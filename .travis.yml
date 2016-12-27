@@ -1,0 +1,12 @@
+dist: trusty
+sudo: required
+services:
+  - mysql
+before_install:
+  - mysql -e 'CREATE DATABASE ger_test;'
+language: node_js
+node_js:
+  - "0.12"
+  - "4"
+  - "6"
+  - "7"

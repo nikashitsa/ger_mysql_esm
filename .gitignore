@@ -1,0 +1,6 @@
+.vagrant
+.DS_Store
+npm-debug.log
+node_modules
+rethinkdb_data
+.idea

@@ -1,0 +1,9 @@
+version: '2'
+services:
+  db:
+    image: mysql:5.6
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_DATABASE: 'ger_test'
