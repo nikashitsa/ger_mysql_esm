@@ -229,7 +229,7 @@ class MysqlESM
     .whereIn('f.action', actions)
     .where('f.created_at', '<=', options.current_datetime)
     .where('e.created_at', '<=', options.current_datetime)
-    .select(@_knex.raw("f.#{column1}, MAX(f.created_at) as last_actioned_at, MAX(f.expires_at) as last_expires_at, group_concat(f.#{column2}) as #{column2}, DATE(max(e.created_at)) as created_at_day, count(f.#{column1}) as action_count"))
+    .select(@_knex.raw("f.#{column1}, MAX(f.created_at) as last_actioned_at, MAX(f.expires_at) as last_expires_at, group_concat(distinct f.#{column2}) as #{column2}, DATE(max(e.created_at)) as created_at_day, count(f.#{column1}) as action_count"))
     .groupBy("f.#{column1}")
 
   ##################################

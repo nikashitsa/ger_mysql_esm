@@ -15,7 +15,7 @@
   "dependencies": {
     "bluebird": "^3.4.7",
     "coffee-script": "^1.12.2",
-    "knex": "0.8.6",
+    "knex": "0.12.6",
     "lodash": "3.9.3",
     "moment": "^2.17.1",
     "mysql": "^2.12.0"
