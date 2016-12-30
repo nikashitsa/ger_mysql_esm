@@ -23,7 +23,6 @@ global._knex = knex({
     host: '127.0.0.1',
     user: 'root',
     password: '',
-    database: 'ger_test',
     timezone: 'utc',
     charset: 'utf8'
   }
