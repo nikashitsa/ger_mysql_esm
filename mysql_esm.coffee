@@ -496,13 +496,18 @@ class MysqlESM
     promise
 
   truncate_thing_actions: (namespace, thing, trunc_size, action) ->
-    bindings = {thing: thing, action: action}
-
-    q = "delete from `#{namespace}`.events
-         where id in
-         (select * from (select id from `#{namespace}`.events where action = :action and thing = :thing
-         order by created_at DESC limit #{trunc_size}, 10000) as sub);"
-    @_knex.raw(q ,bindings)
+    @_knex("#{namespace}.events")
+    .select('id')
+    .where('action', action)
+    .where('thing', thing)
+    .orderBy('created_at', 'desc')
+    .offset(trunc_size)
+    .then((rows) ->
+      ids = rows.map( (row) -> row.id)
+      @_knex("#{namespace}.events")
+      .whereIn('id', ids)
+      .del()
+    )
 
   truncate_people_per_action: (namespace, people, trunc_size, actions) ->
     #TODO do the same thing for things
@@ -518,13 +523,18 @@ class MysqlESM
     promise
 
   truncate_person_actions: (namespace, person, trunc_size, action) ->
-    bindings = {person: person, action: action}
-    q = "delete from `#{namespace}`.events
-         where id in
-         (select * from (select id from `#{namespace}`.events where action = :action and person = :person
-         order by created_at DESC limit #{trunc_size}, 10000) as sub);"
-
-    @_knex.raw(q ,bindings)
+    @_knex("#{namespace}.events")
+    .select('id')
+    .where('action', action)
+    .where('person', person)
+    .orderBy('created_at', 'desc')
+    .offset(trunc_size)
+    .then((rows) ->
+      ids = rows.map( (row) -> row.id)
+      @_knex("#{namespace}.events")
+      .whereIn('id', ids)
+      .del()
+    )
 
   remove_events_till_size: (namespace, number_of_events) ->
     #TODO move too offset method
