@@ -4,7 +4,7 @@
 
 This is a project that implements an Event Store Manager in MySQL for [GER](https://www.npmjs.com/package/ger).
 
-Work in progress... Need help with some issues.
+Still need to improve performance.
 
 ### Testing
 
