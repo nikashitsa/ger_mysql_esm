@@ -57,7 +57,7 @@ class MysqlESM
   list_namespaces: () ->
     @_knex.raw("SELECT table_schema FROM information_schema.tables WHERE table_name = 'events'")
     .then( (res) ->
-      ret = _.uniq(res[0].map( (row) -> row.table_schema))
+      ret = _.uniq(res[0].map( (row) -> row.TABLE_SCHEMA))
       ret = ret.filter((x) -> x != 'default')
       ret
     )
